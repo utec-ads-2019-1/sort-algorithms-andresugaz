@@ -8,7 +8,10 @@ class InsertSort : public Sort {
         InsertSort(void *elements, size_t size) : Sort(elements, size) {}
 
         void execute(void (*compare)(void*, int, int)) {
-            // TODO
+            for (int i = 1; i < size; i++) 
+            {
+                compare(elements, i, size);
+            }
         }
 
         inline string name() { return "InsertSort"; }
