@@ -88,7 +88,79 @@ void quicksort2(void *elements, int primero, int ultimo)
 
 void integersQuick(void *elements, int i, int size) {
     int *array = (int*) elements;
-                    quicksort2(array, 0, size-1);
+    quicksort2(array, 0, size-1);
+}
+
+
+
+void merge(void *elements, int low, int middle, int high) 
+{
+    int *array = (int*) elements;
+    int i, j, k; 
+    int size1 = middle - low + 1; 
+    int size2 =  high - middle; 
+  
+    int left[size1];
+    int right[size2]; 
+  
+    for (i = 0; i < size1; i++) 
+        left[i] = array[low + i]; 
+    for (j = 0; j < size2; j++) 
+        right[j] = array[middle + 1+ j]; 
+  
+    i = 0; // array aux izquierda
+    j = 0; // array aux derecha 
+    k = low; // array donde se reemplazan los valores
+    
+    while (i < size1 && j < size2) 
+    { 
+        if (left[i] <= right[j]) 
+        { 
+            array[k] = left[i]; 
+            i++; 
+        } 
+        else
+        { 
+            array[k] = right[j]; 
+            j++; 
+        } 
+        k++; 
+    } 
+  
+    while (i < size1) 
+    { 
+        array[k] = left[i]; 
+        i++; 
+        k++; 
+    } 
+  
+    /* Copy the remaining elements of R[], if there 
+       are any */
+    while (j < size2) 
+    { 
+        array[k] = right[j]; 
+        j++; 
+        k++; 
+    } 
+} 
+  
+
+void mergesort2(void *elements, int low, int high) 
+{ 
+    int *array = (int*) elements;
+    if (low < high) 
+    {
+        int middle = (low+high)/2; 
+        mergesort2(array, low, middle); 
+        mergesort2(array, middle+1, high); 
+  
+        merge(array, low, middle, high); 
+    } 
+} 
+
+void integersMerge(void *elements, int i, int size) {
+    int *array = (int*) elements;
+    mergesort2(array, 0, size-1);
 }
 
 Sort* Tester::getSort(Algorithm sort, void *array, size_t size) {
@@ -110,6 +182,7 @@ fptr Tester::getCompare(Algorithm sort) {
         case insertsort: return &integersInsert;
         case shellsort: return &integersShell;
         case quicksort: return &integersQuick;
+        case mergesort: return &integersMerge;
         default: throw invalid_argument("Not a valid comparer");
     }
 }
@@ -118,7 +191,7 @@ void Tester::integerSorts(int *array, size_t size) {
     Sort* sort;
     int temp[size];
 
-    Algorithm algorithm[] = { bubblesort, selectsort, insertsort, shellsort, quicksort/*, mergesort */};
+    Algorithm algorithm[] = { bubblesort, selectsort, insertsort, shellsort, quicksort, mergesort};
     size_t numberOfAlgorithms = sizeof(algorithm) / sizeof(algorithm[0]);
 
     for (int i = 0; i < numberOfAlgorithms; i++) {

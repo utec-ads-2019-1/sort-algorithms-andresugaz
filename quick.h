@@ -8,10 +8,6 @@ class QuickSort : public Sort {
         QuickSort(void *elements, size_t size) : Sort(elements, size) {}
 
         void execute(void (*compare)(void*, int, int)) {
-            /*for (int i = 0; i < size; i++) 
-            {
-                compare(elements, i, size);
-            }*/
         int x=0;
         compare(elements, x, size);
         }
