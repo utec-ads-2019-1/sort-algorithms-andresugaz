@@ -8,7 +8,10 @@ class MergeSort : public Sort {
         MergeSort(void *elements, size_t size) : Sort(elements, size) {}
 
         void execute(void (*compare)(void*, int, int)) {
-            // TODO
+            
+        int x=0;
+        compare(elements, x, size);
+        
         }
 
         inline string name() { return "MergeSort"; }
