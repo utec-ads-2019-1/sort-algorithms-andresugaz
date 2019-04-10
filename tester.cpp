@@ -118,7 +118,7 @@ void Tester::integerSorts(int *array, size_t size) {
     Sort* sort;
     int temp[size];
 
-    Algorithm algorithm[] = { bubblesort, selectsort, insertsort, shellsort/*, quicksort, mergesort */};
+    Algorithm algorithm[] = { bubblesort, selectsort, insertsort, shellsort, quicksort/*, mergesort */};
     size_t numberOfAlgorithms = sizeof(algorithm) / sizeof(algorithm[0]);
 
     for (int i = 0; i < numberOfAlgorithms; i++) {
